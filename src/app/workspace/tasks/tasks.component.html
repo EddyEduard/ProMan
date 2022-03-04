@@ -1,0 +1,329 @@
+<div class="tasks">
+  <div class="row">
+    <div class="col-4">
+      <div class="toDo column">
+        <div class="header">
+          <span>
+            TO DO
+            <a href="javascript: void(0);" (click)="createTask()"><i class="fa fa-plus"></i></a>
+          </span>
+        </div>
+        <section class="priority high">
+          <fieldset class="p-2">
+            <legend class="float-none w-auto p-2">PRIORITY: HIGH</legend>
+            <ng-container *ngFor="let task of toDoTasks; let i = index">
+              <div class="task highBorderColor" id="task{{i}}" *ngIf="task.priority == 'HIGH'"
+                (click)="openTask(i, task.status)">
+                <div class="header">
+                  <h4>{{task.name}}</h4>
+                </div>
+                <div class="body">
+                  <p>{{task.description}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </fieldset>
+        </section>
+        <section class="priority middle">
+          <fieldset class="p-2">
+            <legend class="float-none w-auto p-2">PRIORITY: MIDDLE</legend>
+            <ng-container *ngFor="let task of toDoTasks; let i = index">
+              <div class="task middleBorderColor" id="task{{i}}" *ngIf="task.priority == 'MIDDLE'"
+                (click)="openTask(i, task.status)">
+                <div class="header">
+                  <h4>{{task.name}}</h4>
+                </div>
+                <div class="body">
+                  <p>{{task.description}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </fieldset>
+        </section>
+        <section class="priority low">
+          <fieldset class="p-2">
+            <legend class="float-none w-auto p-2">PRIORITY: LOW</legend>
+            <ng-container *ngFor="let task of toDoTasks; let i = index">
+              <div class="task lowBorderColor" id="task{{i}}" *ngIf="task.priority == 'LOW'"
+                (click)="openTask(i, task.status)">
+                <div class="header">
+                  <h4>{{task.name}}</h4>
+                </div>
+                <div class="body">
+                  <p>{{task.description}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </fieldset>
+        </section>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="inProgress column">
+        <div class="header">
+          <span>IN PROGRESS</span>
+        </div>
+        <section class="priority high">
+          <fieldset class="p-2">
+            <legend class="float-none w-auto p-2">PRIORITY: HIGH</legend>
+            <ng-container *ngFor="let task of inProgressTasks; let i = index">
+              <div class="task highBorderColor" id="task{{i}}" *ngIf="task.priority == 'HIGH'"
+                (click)="openTask(i, task.status)">
+                <div class="header">
+                  <h4>{{task.name}}</h4>
+                </div>
+                <div class="body">
+                  <p>{{task.description}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </fieldset>
+        </section>
+        <section class="priority middle">
+          <fieldset class="p-2">
+            <legend class="float-none w-auto p-2">PRIORITY: MIDDLE</legend>
+            <ng-container *ngFor="let task of inProgressTasks; let i = index">
+              <div class="task middleBorderColor" id="task{{i}}" *ngIf="task.priority == 'MIDDLE'"
+                (click)="openTask(i, task.status)">
+                <div class="header">
+                  <h4>{{task.name}}</h4>
+                </div>
+                <div class="body">
+                  <p>{{task.description}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </fieldset>
+        </section>
+        <section class="priority low">
+          <fieldset class="p-2">
+            <legend class="float-none w-auto p-2">PRIORITY: LOW</legend>
+            <ng-container *ngFor="let task of inProgressTasks; let i = index">
+              <div class="task lowBorderColor" id="task{{i}}" *ngIf="task.priority == 'LOW'"
+                (click)="openTask(i, task.status)">
+                <div class="header">
+                  <h4>{{task.name}}</h4>
+                </div>
+                <div class="body">
+                  <p>{{task.description}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </fieldset>
+        </section>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="done column">
+        <div class="header">
+          <span>DONE</span>
+        </div>
+        <section class="priority high">
+          <fieldset class="p-2">
+            <legend class="float-none w-auto p-2">PRIORITY: HIGH</legend>
+            <ng-container *ngFor="let task of doneTasks; let i = index">
+              <div class="task highBorderColor" id="task{{i}}" *ngIf="task.priority == 'HIGH'"
+                (click)="openTask(i, task.status)">
+                <div class="header">
+                  <h4>{{task.name}}</h4>
+                </div>
+                <div class="body">
+                  <p>{{task.description}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </fieldset>
+        </section>
+        <section class="priority middle">
+          <fieldset class="p-2">
+            <legend class="float-none w-auto p-2">PRIORITY: MIDDLE</legend>
+            <ng-container *ngFor="let task of doneTasks; let i = index">
+              <div class="task middleBorderColor" id="task{{i}}" *ngIf="task.priority == 'MIDDLE'"
+                (click)="openTask(i, task.status)">
+                <div class="header">
+                  <h4>{{task.name}}</h4>
+                </div>
+                <div class="body">
+                  <p>{{task.description}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </fieldset>
+        </section>
+        <section class="priority low">
+          <fieldset class="p-2">
+            <legend class="float-none w-auto p-2">PRIORITY: LOW</legend>
+            <ng-container *ngFor="let task of doneTasks; let i = index">
+              <div class="task lowBorderColor" id="task{{i}}" *ngIf="task.priority == 'LOW'"
+                (click)="openTask(i, task.status)">
+                <div class="header">
+                  <h4>{{task.name}}</h4>
+                </div>
+                <div class="body">
+                  <p>{{task.description}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
+                </div>
+              </div>
+            </ng-container>
+          </fieldset>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div #createTaskModal class="modal taskModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span>CREATE TASK</span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="create">
+            <form [formGroup]="createTaskForm" (ngSubmit)="saveCreatedTask()">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" name="name" formControlName="name" required minlength="6" />
+                <div *ngIf="createTaskName?.errors && (submitted || createTaskName?.dirty)">
+                  <span class="text-danger" *ngIf="createTaskName?.errors?.['required']">Name is
+                    required.</span>
+                  <span class="text-danger" *ngIf="createTaskName?.hasError('minlength')">Name must be
+                    at
+                    least 6
+                    characters
+                    long.</span>
+                </div>
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" formControlName="description"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="priority">Priority</label>
+                <br>
+                <label class="radio">
+                  <input type="radio" name="priority" formControlName="priority" value="HIGH" />
+                  <span class="checkmark"></span>
+                  HIGH
+                </label>
+                <label class="radio">
+                  <input type="radio" name="priority" formControlName="priority" value="MIDDLE" />
+                  <span class="checkmark"></span>
+                  MIDDLE
+                </label>
+                <label class="radio">
+                  <input type="radio" name="priority" formControlName="priority" value="LOW" />
+                  <span class="checkmark"></span>
+                  LOW
+                </label>
+                <div *ngIf="createTaskPriority?.errors && (submitted || createTaskPriority?.dirty)">
+                  <span class="text-danger" *ngIf="createTaskPriority?.errors?.['required']">Priority is
+                    required.</span>
+                </div>
+              </div>
+              <br>
+              <div class="actions">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="createTaskModal.style.display = 'none'">Close</button>
+    </div>
+  </div>
+</div>
+
+<div #openTaskModal class="modal taskModal">
+  <div class="modal-content" *ngIf="openedTask != undefined">
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-8">
+          <div class="detailes">
+            <div class="view" *ngIf="!isEditTask">
+              <h4 class="title">{{openedTask.name}}</h4>
+              <p>{{openedTask.description}}</p>
+              <hr>
+              <button class="btn btn-primary" (click)="editTask()"><i class="fa fa-pencil"></i>Edit</button>
+            </div>
+            <div class="edit" *ngIf="isEditTask">
+              <form [formGroup]="editTaskForm" (ngSubmit)="saveEditTask()">
+                <div class="form-group">
+                  <input class="form-control" formControlName="name" required minlength="6" />
+                  <div *ngIf="editTaskName?.errors && (submitted || editTaskName?.dirty)">
+                    <span class="text-danger" *ngIf="editTaskName?.errors?.['required']">Name is
+                      required.</span>
+                    <span class="text-danger" *ngIf="editTaskName?.hasError('minlength')">Name must be
+                      at
+                      least 6
+                      characters
+                      long.</span>
+                  </div>
+                </div>
+                <br>
+                <div class="form-group">
+                  <textarea formControlName="description"></textarea>
+                </div>
+                <br>
+                <div class="actions">
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+                  <button class="btn btn-danger" (click)="isEditTask = false"><i class="fa fa-times"></i>Cancel</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="info">
+            <div class="btn-group">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                {{openedTask.status}}
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="javascript: void(0);" (click)="switchToToDo()"
+                  *ngIf="openedTask.status != 'TODO'">TO DO</a>
+                <a class="dropdown-item" href="javascript: void(0);" (click)="switchToInProgress()"
+                  *ngIf="openedTask.status != 'INPROGRESS'">IN
+                  PROGRESS</a>
+                <a class="dropdown-item" href="javascript: void(0);" (click)="switchToDone()"
+                  *ngIf="openedTask.status != 'DONE'">DONE</a>
+              </div>
+            </div>
+            <table>
+              <tr>
+                <td>Priority:</td>
+                <td><span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>{{openedTask.priority}}</span>
+                </td>
+              </tr>
+              <tr>
+                <td>Created date:</td>
+                <td>{{openedTask.created_date_format}}</td>
+              </tr>
+              <tr>
+                <td>Updated date:</td>
+                <td>{{openedTask.updated_date_format}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-danger" (click)="deleteTask()"><i class="fa fa-trash"></i>Delete</button>
+      <button type="button" class="btn btn-secondary" (click)="openTaskModal.style.display = 'none'">Close</button>
+    </div>
+  </div>
+</div>

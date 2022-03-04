@@ -1,0 +1,38 @@
+.workspace {
+    width: 100%;
+    height: 100%;
+}
+
+.main {
+    margin-left: 280px;
+}
+
+.sidebar {
+    position: fixed;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 280px;
+    height: 100vh;
+    height: -webkit-fill-available;
+    max-height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+.logo img {
+    margin-right: 5px;
+    margin-left: 5px;
+    filter: brightness(0) invert(1);
+}
+
+.nav-link:hover {
+    background: lightslategray;
+}
+
+.nav i {
+    margin-right: 10px;
+}
+
+.dropdown-menu i {
+    margin-right: 10px;
+}

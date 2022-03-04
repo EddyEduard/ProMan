@@ -1,0 +1,80 @@
+<div class="sprints">
+  <section class="priority high">
+    <fieldset class="p-2">
+      <legend class="float-none w-auto p-2">PRIORITY: HIGH</legend>
+      <div class="row">
+        <div class="col-4" *ngFor="let sprint of highSprints">
+          <div class="sprint">
+            <div class="header">
+              <h3>{{sprint.name}}</h3>
+            </div>
+            <div class="body">
+              <p>{{sprint.description}}</p>
+              <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{sprint.priority}}</span>
+            </div>
+            <div class="footer text-center">
+              <a href="/workspace/tasks/{{sprint.project_id}}/{{sprint.id}}" class="btn btn-info text-white"><i
+                  class="fas fa-book-open"></i>Open</a>
+              <button class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</button>
+              <button class="btn btn-danger" (click)="deleteSprint(sprint.id, sprint.priority)"><i
+                  class="fa fa-trash"></i>Delete</button>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </fieldset>
+  </section>
+  <section class="priority middle">
+    <fieldset class="p-2">
+      <legend class="float-none w-auto p-2">PRIORITY: MIDDLE</legend>
+      <div class="row">
+        <div class="col-4" *ngFor="let sprint of middleSprints">
+          <div class="sprint">
+            <div class="header">
+              <h3>{{sprint.name}}</h3>
+            </div>
+            <div class="body">
+              <p>{{sprint.description}}</p>
+              <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{sprint.priority}}</span>
+            </div>
+            <div class="footer text-center">
+              <a href="/workspace/tasks/{{sprint.project_id}}/{{sprint.id}}" class="btn btn-info text-white"><i
+                  class="fas fa-book-open"></i>Open</a>
+              <button class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</button>
+              <button class="btn btn-danger" (click)="deleteSprint(sprint.id, sprint.priority)"><i
+                  class="fa fa-trash"></i>Delete</button>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </fieldset>
+  </section>
+  <section class="priority low">
+    <fieldset class="p-2">
+      <legend class="float-none w-auto p-2">PRIORITY: LOW</legend>
+      <div class="row">
+        <div class="col-4" *ngFor="let sprint of lowSprints">
+          <div class="sprint">
+            <div class="header">
+              <h3>{{sprint.name}}</h3>
+            </div>
+            <div class="body">
+              <p>{{sprint.description}}</p>
+              <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{sprint.priority}}</span>
+            </div>
+            <div class="footer text-center">
+              <a href="/workspace/tasks/{{sprint.project_id}}/{{sprint.id}}" class="btn btn-info text-white"><i
+                  class="fas fa-book-open"></i>Open</a>
+              <button class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</button>
+              <button class="btn btn-danger" (click)="deleteSprint(sprint.id, sprint.priority)"><i
+                  class="fa fa-trash"></i>Delete</button>
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </fieldset>
+  </section>
+</div>

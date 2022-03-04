@@ -1,0 +1,141 @@
+<div class="account" *ngIf="user != undefined">
+  <div class="row">
+    <div class="col-6">
+      <div class="profile">
+        <form [formGroup]="profileForm" (ngSubmit)="saveUpdates()">
+          <table>
+            <tr>
+              <td>E-mail</td>
+              <td *ngIf="!isUserUpdate">{{user.email}}</td>
+              <td *ngIf="isUserUpdate">
+                <input type="email" formControlName="email" class="form-control" required />
+                <div *ngIf="profileEmail?.errors && (submittedUpdate || profileEmail?.dirty)">
+                  <span class="text-danger" *ngIf="profileEmail?.errors?.['required']">Email is
+                    required.</span>
+                  <span class="text-danger" *ngIf="profileEmail?.hasError('email')">Incorect email
+                    address.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Phone</td>
+              <td *ngIf="!isUserUpdate">{{user.phone}}</td>
+              <td *ngIf="isUserUpdate">
+                <input formControlName="phone" class="form-control" minlength="9" maxlength="11" required />
+                <div *ngIf="profilePhone?.errors && (submittedUpdate || profilePhone?.dirty)">
+                  <span class="text-danger" *ngIf="profilePhone?.errors?.['required']">Phone is
+                    required.</span>
+                  <span class="text-danger" *ngIf="profilePhone?.hasError('minlength')">Phone must be
+                    at
+                    least 9
+                    characters
+                    long.</span>
+                  <span class="text-danger" *ngIf="profilePhone?.hasError('maxlength')">Phone must be
+                    at
+                    most 11
+                    characters
+                    long.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Username</td>
+              <td *ngIf="!isUserUpdate">{{user.username}}</td>
+              <td *ngIf="isUserUpdate">
+                <input formControlName="username" class="form-control" minlength="6" required />
+                <div *ngIf="profileUsername?.errors && (submittedUpdate || profileUsername?.dirty)">
+                  <span class="text-danger" *ngIf="profileUsername?.errors?.['required']">Username is
+                    required.</span>
+                  <span class="text-danger" *ngIf="profileUsername?.hasError('minlength')">Username must be
+                    at
+                    least 6
+                    characters
+                    long.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Password</td>
+              <td *ngIf="!isUserUpdate">
+                {{!user.hide_password ? user.password : '*'.repeat(user.password.length)}}
+                <span><i class="fas" [ngClass]="{'fa-eye': user.hide_password, 'fa-eye-slash': !user.hide_password}"
+                    (click)="user.hide_password = user.hide_password ? false : true"></i></span>
+              </td>
+              <td *ngIf="isUserUpdate">
+                <input type="password" formControlName="password" class="form-control" [value]="user.password"
+                  minlength="6" required />
+                <div *ngIf="profilePassword?.errors && (submittedUpdate || profilePassword?.dirty)">
+                  <span class="text-danger" *ngIf="profilePassword?.errors?.['required']">Password is
+                    required.</span>
+                  <span class="text-danger" *ngIf="profilePassword?.hasError('minlength')">Password must be
+                    at
+                    least 6
+                    characters
+                    long.</span>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>Roles</td>
+              <td *ngIf="!isUserUpdate">
+                <ul>
+                  <li *ngFor="let role of user.roles">
+                    <span><i class="fas fa-user-tag"></i><b>{{role.name}}</b></span>
+                  </li>
+                </ul>
+              </td>
+              <td *ngIf="isUserUpdate">
+                <label class="checkbox" *ngFor="let role of roles">
+                  <input type="checkbox" name="role.name" [value]="role.value" [checked]="role.checked"
+                    (change)="!role.checked ? role.checked = true : role.checked = false" />
+                  <span class="checkmark"></span>
+                  {{role.name}}
+                </label>
+                <div *ngIf="isRoleRequired">
+                  <span class="text-danger">Role is required.</span>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <div class="actions">
+            <button class="btn btn-primary" (click)="isUserUpdate = true" *ngIf="!isUserUpdate"><i
+                class="fas fa-pencil"></i>Update</button>
+            <button type="submit" class="btn btn-success" *ngIf="isUserUpdate">
+              <div class="spinner-border" role="status" *ngIf="isValidForm">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div *ngIf="!isValidForm">
+                <i class="fa fa-save"></i>Save
+              </div>
+            </button>
+            <button type="button" class="btn btn-danger" (click)="isUserUpdate = false" *ngIf="isUserUpdate"><i
+                class="fas fa-times"></i>Cancel</button>
+          </div>
+          <div class="alert alert-success message" role="alert" *ngIf="isSuccessUpdate && message != ''">
+            <span><i class="fal fa-check"></i>{{message}}</span>
+          </div>
+          <div class="alert alert-danger message" role="alert" *ngIf="!isSuccessUpdate && message != ''">
+            <span><i class="fal fa-exclamation-triangle"></i>{{message}}</span>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="profile">
+        <div class="messages alert alert-info" role="alert">
+          <span>
+            <i class="fal fa-info"></i>
+            If you delete the account both the personal and company profile will be
+            deleted. The data will never be recovered.All projects sprints and tasks will be deleted.
+          </span>
+        </div>
+        <div class="actions">
+          <button class="btn btn-danger" (click)="deleteAccount()"><i class="fa fa-trash"></i>Delete</button>
+        </div>
+        <div class="alert alert-danger message" role="alert" *ngIf="isFailedDelete && message != ''">
+          <span><i class="fal fa-exclamation-triangle"></i>Failed delete account!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

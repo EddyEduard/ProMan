@@ -1,0 +1,20 @@
+<div class="projects">
+  <div class="row">
+    <div class="col-4">
+      <div class="project" *ngFor="let project of projects">
+        <div class="header">
+          <h3>{{project.name}}</h3>
+        </div>
+        <div class="body">
+          <p>{{project.description}}</p>
+        </div>
+        <div class="footer text-center">
+          <a href="/workspace/sprints/{{project.id}}" class="btn btn-info text-white"><i
+              class="fas fa-book-open"></i>Open</a>
+          <button class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</button>
+          <button class="btn btn-danger"><i class="fa fa-trash"></i>Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
