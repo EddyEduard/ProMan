@@ -1,0 +1,61 @@
+<div class="login">
+    <div class="row justify-content-center h-100">
+        <div class="col-4">
+            <form [formGroup]="authLogin" (ngSubmit)="signIn()">
+                <h3 class="text-center">Sign In</h3>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="email">E-mail</label>
+                            <input type="email" formControlName="email" class="form-control" id="email"
+                                placeholder="Enter company email ..." required />
+                            <div *ngIf="loginEmail?.errors && (submittedLogin || loginEmail?.dirty)">
+                                <span class="text-danger" *ngIf="loginEmail?.errors?.['required']">Email is
+                                    required.</span>
+                                <span class="text-danger" *ngIf="loginEmail?.hasError('email')">Incorect email
+                                    address.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" formControlName="password" class="form-control" id="password"
+                                placeholder="Enter password ..." minlength="6" required />
+                            <div *ngIf="loginPassword?.errors && (submittedLogin || loginPassword?.dirty)">
+                                <span class="text-danger" *ngIf="loginPassword?.errors?.['required']">Password is
+                                    required.</span>
+                                <span class="text-danger" *ngIf="loginPassword?.hasError('minlength')">Password must be
+                                    at
+                                    least 6
+                                    characters
+                                    long.</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 text-center">
+                        <br>
+                        <button type="submit" class="btn btn-primary">
+                            <div class="spinner-border" role="status" *ngIf="isValidForm">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <div *ngIf="!isValidForm">
+                                <i class="fa fa-paper-plane"></i>Sign In
+                            </div>
+                        </button>
+                    </div>
+                    <div class="col-12 text-center">
+                        <br>
+                        <a [routerLink]="['/auth/register']">Sign Up</a>
+                    </div>
+                    <div class="col-12" *ngIf="!isSuccessLogin && message != ''">
+                        <br>
+                        <div class="alert alert-danger" role="alert">
+                            <span><i class="fal fa-exclamation-triangle"></i>{{message}}</span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

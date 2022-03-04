@@ -1,0 +1,188 @@
+<div class="register">
+  <div class="row justify-content-center h-100">
+    <div class="col-6">
+      <form [formGroup]="authRegister" (ngSubmit)="signUp()">
+        <h3 class="text-center">Sign Up</h3>
+        <div class="row">
+          <div class="col-12">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" formControlName="name" class="form-control" id="name"
+                placeholder="Enter company name ..." minlength="6" required />
+              <div *ngIf="registerName?.errors && (submittedRegister || registerName?.dirty)">
+                <span class="text-danger" *ngIf="registerName?.errors?.['required']">Name is
+                  required.</span>
+                <span class="text-danger" *ngIf="registerName?.hasError('minlength')">Name must be
+                  at
+                  least 6
+                  characters
+                  long.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="email">E-mail</label>
+              <input type="email" formControlName="email" class="form-control" id="email"
+                placeholder="Enter company email ..." required />
+              <div *ngIf="registerEmail?.errors && (submittedRegister || registerEmail?.dirty)">
+                <span class="text-danger" *ngIf="registerEmail?.errors?.['required']">Email is
+                  required.</span>
+                <span class="text-danger" *ngIf="registerEmail?.hasError('email')">Incorect email
+                  address.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input type="text" formControlName="phone" class="form-control" id="phone"
+                placeholder="Enter company phone ..." minlength="9" maxlength="11" required />
+              <div *ngIf="registerPhone?.errors && (submittedRegister || registerPhone?.dirty)">
+                <span class="text-danger" *ngIf="registerPhone?.errors?.['required']">Phone is
+                  required.</span>
+                <span class="text-danger" *ngIf="registerPhone?.hasError('minlength')">Phone must be
+                  at
+                  least 9
+                  characters
+                  long.</span>
+                <span class="text-danger" *ngIf="registerPhone?.hasError('maxlength')">Phone must be
+                  at
+                  most 11
+                  characters
+                  long.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="industry">Industry</label>
+              <input type="text" formControlName="industry" class="form-control" id="industry"
+                placeholder="Enter industry name ..." required />
+              <div *ngIf="registerIndustry?.errors && (submittedRegister || registerIndustry?.dirty)">
+                <span class="text-danger" *ngIf="registerIndustry?.errors?.['required']">Industry is
+                  required.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label for="country">Country</label>
+              <input type="text" formControlName="country" class="form-control" id="country"
+                placeholder="Enter country name ..." required />
+              <div *ngIf="registerCountry?.errors && (submittedRegister || registerCountry?.dirty)">
+                <span class="text-danger" *ngIf="registerCountry?.errors?.['required']">Country is
+                  required.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label for="city">City</label>
+              <input type="text" formControlName="city" class="form-control" id="city" placeholder="Enter city name ..."
+                required />
+              <div *ngIf="registerCity?.errors && (submittedRegister || registerCity?.dirty)">
+                <span class="text-danger" *ngIf="registerCity?.errors?.['required']">City is
+                  required.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input type="text" formControlName="address" class="form-control" id="address"
+                placeholder="Enter address ..." required />
+              <div *ngIf="registerAddress?.errors && (submittedRegister || registerAddress?.dirty)">
+                <span class="text-danger" *ngIf="registerAddress?.errors?.['required']">Address is
+                  required.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" formControlName="username" class="form-control" id="username"
+                placeholder="Enter username ..." minlength="6" required />
+              <div *ngIf="registerUsername?.errors && (submittedRegister || registerUsername?.dirty)">
+                <span class="text-danger" *ngIf="registerUsername?.errors?.['required']">Username is
+                  required.</span>
+                <span class="text-danger" *ngIf="registerUsername?.hasError('minlength')">Username must be
+                  at
+                  least 6
+                  characters
+                  long.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" formControlName="password" class="form-control" id="password"
+                placeholder="Enter password ..." minlength="6" required />
+              <div *ngIf="registerPassword?.errors && (submittedRegister || registerPassword?.dirty)">
+                <span class="text-danger" *ngIf="registerPassword?.errors?.['required']">Password is
+                  required.</span>
+                <span class="text-danger" *ngIf="registerPassword?.hasError('minlength')">Password must be
+                  at
+                  least 6
+                  characters
+                  long.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="role">Role</label>
+              <br>
+              <label class="radio">
+                <input type="radio" name="role" formControlName="role" value="ADMIN" />
+                <span class="checkmark"></span>
+                ADMIN
+              </label>
+              <label class="radio">
+                <input type="radio" name="role" formControlName="role" value="MANAGER" />
+                <span class="checkmark"></span>
+                MANAGER
+              </label>
+              <label class="radio">
+                <input type="radio" name="role" formControlName="role" value="DIRECTOR" />
+                <span class="checkmark"></span>
+                DIRECTOR
+              </label>
+              <div *ngIf="registerRole?.errors && (submittedRegister || registerRole?.dirty)">
+                <span class="text-danger" *ngIf="registerRole?.errors?.['required']">Role is
+                  required.</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 text-center">
+            <button class="btn btn-primary">
+              <div class="spinner-border" role="status" *ngIf="isValidForm">
+                <span class="sr-only">Loading...</span>
+              </div>
+              <div *ngIf="!isValidForm">
+                <i class="fa fa-paper-plane"></i>Sign Up
+              </div>
+            </button>
+          </div>
+          <div class="col-12 text-center">
+            <br>
+            <a [routerLink]="['/auth/login']">Sign In</a>
+          </div>
+          <div class="col-12" *ngIf="isSuccessRegister && message != ''">
+            <br>
+            <div class="alert alert-success" role="alert">
+              <span><i class="fal fa-check"></i>{{message}}</span>
+            </div>
+          </div>
+          <div class="col-12" *ngIf="!isSuccessRegister && message != ''">
+            <br>
+            <div class="alert alert-danger" role="alert">
+              <span><i class="fal fa-exclamation-triangle"></i>{{message}}</span>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
