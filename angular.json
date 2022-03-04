@@ -26,7 +26,6 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
               "src/assets"
             ],
             "styles": [
@@ -76,6 +75,9 @@
             "development": {
               "browserTarget": "ProMan:build:development"
             }
+          },
+          "options": {
+            "port": 4000
           },
           "defaultConfiguration": "development"
         },
