@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Priority } from '../Priority.enum';
 import { Status } from '../Status.enum';
 import { ITask } from './ITask';
 
@@ -40,6 +41,7 @@ export class TasksComponent implements OnInit {
   public editTaskForm = new FormGroup({
     name: new FormControl("", Validators.compose([Validators.required, Validators.minLength(6)])),
     description: new FormControl(""),
+    priority: new FormControl("", Validators.compose([Validators.required]))
   });
 
   // Get task name value.
@@ -52,6 +54,11 @@ export class TasksComponent implements OnInit {
     return this.editTaskForm.get("description");
   }
 
+  // Get task priority value.
+  get editTaskPriority() {
+    return this.editTaskForm.get("priority");
+  }
+
   @ViewChild("openTaskModal", { static: true }) private openTaskModal!: ElementRef<HTMLDivElement>;
   @ViewChild("createTaskModal", { static: true }) private createTaskModal!: ElementRef<HTMLDivElement>;
 
@@ -62,6 +69,9 @@ export class TasksComponent implements OnInit {
   public openedTaskIndex: number = -1;
   public isEditTask: boolean = false;
   public submitted: boolean = false;
+  public isValidForm: boolean = false;
+  public isSuccessCreateTask: boolean = true;
+  public isSuccessEditTask: boolean = true;
 
   private headers!: HttpHeaders;
 
@@ -97,7 +107,7 @@ export class TasksComponent implements OnInit {
     this.createTaskModal.nativeElement.style.display = "block";
   }
 
-  // Save created task
+  // Save created task.
   async saveCreatedTask() {
     this.submitted = true;
 
@@ -114,13 +124,25 @@ export class TasksComponent implements OnInit {
             priority: this.createTaskPriority?.value
           }
 
+          this.isValidForm = true;
+
           await this.http.post<ITask>(API_URL + "/task/create", body, { headers: this.headers })
             .pipe(
               map(task => {
                 this.toDoTasks.push(task);
-                this.createTaskModal.nativeElement.style.display = "none";
               })
-            ).subscribe();
+            ).subscribe(
+              {
+                complete: () => {
+                  this.isValidForm = false;
+                  this.createTaskModal.nativeElement.style.display = "none";
+                },
+                error: () => {
+                  this.isValidForm = false;
+                  this.isSuccessCreateTask = false;
+                }
+              }
+            );
         })
       ).subscribe();
     }
@@ -148,6 +170,7 @@ export class TasksComponent implements OnInit {
     this.isEditTask = true;
     this.editTaskName?.setValue(this.openedTask.name);
     this.editTaskDescription?.setValue(this.openedTask.description);
+    this.editTaskPriority?.setValue(this.openedTask.priority);
   }
 
   // Save edit task.
@@ -157,8 +180,21 @@ export class TasksComponent implements OnInit {
     if (this.editTaskForm.valid) {
       this.openedTask.name = this.editTaskName?.value;
       this.openedTask.description = this.editTaskDescription?.value;
+      this.openedTask.priority = this.editTaskPriority?.value;
 
-      await this.saveTask();
+      this.isValidForm = true;
+
+      await this.http.put<ITask>(API_URL + "/task/update/" + this.openedTask.id, this.openedTask, { headers: this.headers })
+        .subscribe({
+          complete: () => {
+            this.isValidForm = false;
+            this.isEditTask = false;
+          },
+          error: () => {
+            this.isValidForm = false;
+            this.isSuccessEditTask = false;
+          }
+        });
     }
   }
 
@@ -173,7 +209,7 @@ export class TasksComponent implements OnInit {
     else if (oldStatus == Status.DONE)
       this.doneTasks.splice(this.openedTaskIndex, 1);
 
-    await this.saveTask();
+    await this.saveStatusTask();
   }
 
   // Switch a task to status 'INPROGRESS'.
@@ -187,7 +223,7 @@ export class TasksComponent implements OnInit {
     else if (oldStatus == Status.DONE)
       this.doneTasks.splice(this.openedTaskIndex, 1);
 
-    await this.saveTask();
+    await this.saveStatusTask();
   }
 
   // Switch a task to status 'DONE'.
@@ -202,12 +238,12 @@ export class TasksComponent implements OnInit {
     else if (oldStatus == Status.INPROGRESS)
       this.inProgressTasks.splice(this.openedTaskIndex, 1);
 
-    await this.saveTask();
+    await this.saveStatusTask();
   }
 
   // Save editied task.
-  async saveTask() {
-    await this.http.put<ITask>(API_URL + "/task/update/" + this.openedTask.id, this.openedTask, { headers: this.headers }).subscribe();
+  async saveStatusTask() {
+    await this.http.put(API_URL + "/task/update/" + this.openedTask.id, this.openedTask, { headers: this.headers }).subscribe();
   }
 
   // Delete a task.

@@ -1,20 +1,133 @@
 <div class="projects">
   <div class="row">
-    <div class="col-4">
-      <div class="project" *ngFor="let project of projects">
+    <div class="col-12 createProjectButton">
+      <button class="btn btn-secondary" (click)="createProjectModal.style.display = 'block'"><i
+          class="fa fa-plus"></i></button>
+      <hr>
+    </div>
+    <div class="col-4" *ngFor="let project of projects">
+      <div class="project">
         <div class="header">
           <h3>{{project.name}}</h3>
         </div>
         <div class="body">
-          <p>{{project.description}}</p>
+          <p>{{project.description.substring(0, 130)}} {{project.description.length > 130 ? '...' : ''}}</p>
         </div>
         <div class="footer text-center">
           <a href="/workspace/sprints/{{project.id}}" class="btn btn-info text-white"><i
               class="fas fa-book-open"></i>Open</a>
-          <button class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</button>
-          <button class="btn btn-danger"><i class="fa fa-trash"></i>Delete</button>
+          <button class="btn btn-primary" (click)="openEditProject(project)"><i class="fa fa-pencil"></i>Edit</button>
+          <button class="btn btn-danger" (click)="deleteProject(project.id)"><i class="fa fa-trash"></i>Delete</button>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<div #createProjectModal class="modal createProjectModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span>CREATE Project</span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="create">
+            <form [formGroup]="createProjectForm" (ngSubmit)="saveCreatedProject()">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" name="name" formControlName="name" required minlength="6" />
+                <div *ngIf="createProjectName?.errors && (submitted || createProjectName?.dirty)">
+                  <span class="text-danger" *ngIf="createProjectName?.errors?.['required']">Name is
+                    required.</span>
+                  <span class="text-danger" *ngIf="createProjectName?.hasError('minlength')">Name must be
+                    at
+                    least 6
+                    characters
+                    long.</span>
+                </div>
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" formControlName="description"></textarea>
+              </div>
+              <br>
+              <div class="actions">
+                <button type="submit" class="btn btn-primary">
+                  <div class="spinner-border" role="status" *ngIf="isValidForm">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div *ngIf="!isValidForm">
+                    <i class="fa fa-save"></i>Save
+                  </div>
+                </button>
+              </div>
+              <br>
+              <div class="alert alert-danger message" role="alert" *ngIf="!isSuccessCreateProject">
+                <span><i class="fal fa-exclamation-triangle"></i>Failed create project!Try again!</span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="createProjectModal.style.display = 'none'">Close</button>
+    </div>
+  </div>
+</div>
+
+<div #editProjectModal class="modal editProjectModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span>EDIT Project</span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="edit">
+            <form [formGroup]="editProjectForm" (ngSubmit)="saveEditedProject()">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" name="name" formControlName="name" required minlength="6" />
+                <div *ngIf="editProjectName?.errors && (submitted || editProjectName?.dirty)">
+                  <span class="text-danger" *ngIf="editProjectName?.errors?.['required']">Name is
+                    required.</span>
+                  <span class="text-danger" *ngIf="editProjectName?.hasError('minlength')">Name must be
+                    at
+                    least 6
+                    characters
+                    long.</span>
+                </div>
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" formControlName="description"></textarea>
+              </div>
+              <br>
+              <div class="actions">
+                <button type="submit" class="btn btn-primary">
+                  <div class="spinner-border" role="status" *ngIf="isValidForm">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div *ngIf="!isValidForm">
+                    <i class="fa fa-save"></i>Save
+                  </div>
+                </button>
+              </div>
+              <br>
+              <div class="alert alert-danger message" role="alert" *ngIf="!isSuccessEditProject">
+                <span><i class="fal fa-exclamation-triangle"></i>Failed edit project!Try again!</span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="editProjectModal.style.display = 'none'">Close</button>
     </div>
   </div>
 </div>

@@ -1,80 +1,249 @@
 <div class="sprints">
-  <section class="priority high">
-    <fieldset class="p-2">
-      <legend class="float-none w-auto p-2">PRIORITY: HIGH</legend>
-      <div class="row">
-        <div class="col-4" *ngFor="let sprint of highSprints">
-          <div class="sprint">
-            <div class="header">
-              <h3>{{sprint.name}}</h3>
-            </div>
-            <div class="body">
-              <p>{{sprint.description}}</p>
-              <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{sprint.priority}}</span>
-            </div>
-            <div class="footer text-center">
-              <a href="/workspace/tasks/{{sprint.project_id}}/{{sprint.id}}" class="btn btn-info text-white"><i
-                  class="fas fa-book-open"></i>Open</a>
-              <button class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</button>
-              <button class="btn btn-danger" (click)="deleteSprint(sprint.id, sprint.priority)"><i
-                  class="fa fa-trash"></i>Delete</button>
-            </div>
-          </div>
-          <br>
-        </div>
-      </div>
-    </fieldset>
-  </section>
-  <section class="priority middle">
-    <fieldset class="p-2">
-      <legend class="float-none w-auto p-2">PRIORITY: MIDDLE</legend>
-      <div class="row">
-        <div class="col-4" *ngFor="let sprint of middleSprints">
-          <div class="sprint">
-            <div class="header">
-              <h3>{{sprint.name}}</h3>
-            </div>
-            <div class="body">
-              <p>{{sprint.description}}</p>
-              <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{sprint.priority}}</span>
-            </div>
-            <div class="footer text-center">
-              <a href="/workspace/tasks/{{sprint.project_id}}/{{sprint.id}}" class="btn btn-info text-white"><i
-                  class="fas fa-book-open"></i>Open</a>
-              <button class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</button>
-              <button class="btn btn-danger" (click)="deleteSprint(sprint.id, sprint.priority)"><i
-                  class="fa fa-trash"></i>Delete</button>
+  <div class="row">
+    <div class="col-12 createSprintButton">
+      <button class="btn btn-secondary" (click)="createSprintModal.style.display = 'block'"><i
+          class="fa fa-plus"></i></button>
+      <hr>
+    </div>
+    <div class="col-12">
+      <section class="priority high">
+        <fieldset class="p-2">
+          <legend class="float-none w-auto p-2">PRIORITY: HIGH</legend>
+          <div class="row">
+            <div class="col-4" *ngFor="let sprint of highSprints">
+              <div class="sprint">
+                <div class="header">
+                  <h3>{{sprint.name}}</h3>
+                </div>
+                <div class="body">
+                  <p>{{sprint.description.substring(0, 130)}} {{sprint.description.length > 130 ? '...' : ''}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY:
+                    {{sprint.priority}}</span>
+                </div>
+                <div class="footer text-center">
+                  <a href="/workspace/tasks/{{sprint.project_id}}/{{sprint.id}}" class="btn btn-info text-white"><i
+                      class="fas fa-book-open"></i>Open</a>
+                  <button class="btn btn-primary" (click)="openEditSprint(sprint)"><i
+                      class="fa fa-pencil"></i>Edit</button>
+                  <button class="btn btn-danger" (click)="deleteSprint(sprint.id, sprint.priority)"><i
+                      class="fa fa-trash"></i>Delete</button>
+                </div>
+              </div>
+              <br>
             </div>
           </div>
-          <br>
-        </div>
-      </div>
-    </fieldset>
-  </section>
-  <section class="priority low">
-    <fieldset class="p-2">
-      <legend class="float-none w-auto p-2">PRIORITY: LOW</legend>
-      <div class="row">
-        <div class="col-4" *ngFor="let sprint of lowSprints">
-          <div class="sprint">
-            <div class="header">
-              <h3>{{sprint.name}}</h3>
-            </div>
-            <div class="body">
-              <p>{{sprint.description}}</p>
-              <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{sprint.priority}}</span>
-            </div>
-            <div class="footer text-center">
-              <a href="/workspace/tasks/{{sprint.project_id}}/{{sprint.id}}" class="btn btn-info text-white"><i
-                  class="fas fa-book-open"></i>Open</a>
-              <button class="btn btn-primary"><i class="fa fa-pencil"></i>Edit</button>
-              <button class="btn btn-danger" (click)="deleteSprint(sprint.id, sprint.priority)"><i
-                  class="fa fa-trash"></i>Delete</button>
+        </fieldset>
+      </section>
+      <section class="priority middle">
+        <fieldset class="p-2">
+          <legend class="float-none w-auto p-2">PRIORITY: MIDDLE</legend>
+          <div class="row">
+            <div class="col-4" *ngFor="let sprint of middleSprints">
+              <div class="sprint">
+                <div class="header">
+                  <h3>{{sprint.name}}</h3>
+                </div>
+                <div class="body">
+                  <p>{{sprint.description.substring(0, 130)}} {{sprint.description.length > 130 ? '...' : ''}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY:
+                    {{sprint.priority}}</span>
+                </div>
+                <div class="footer text-center">
+                  <a href="/workspace/tasks/{{sprint.project_id}}/{{sprint.id}}" class="btn btn-info text-white"><i
+                      class="fas fa-book-open"></i>Open</a>
+                  <button class="btn btn-primary" (click)="openEditSprint(sprint)"><i
+                      class="fa fa-pencil"></i>Edit</button>
+                  <button class="btn btn-danger" (click)="deleteSprint(sprint.id, sprint.priority)"><i
+                      class="fa fa-trash"></i>Delete</button>
+                </div>
+              </div>
+              <br>
             </div>
           </div>
-          <br>
+        </fieldset>
+      </section>
+      <section class="priority low">
+        <fieldset class="p-2">
+          <legend class="float-none w-auto p-2">PRIORITY: LOW</legend>
+          <div class="row">
+            <div class="col-4" *ngFor="let sprint of lowSprints">
+              <div class="sprint">
+                <div class="header">
+                  <h3>{{sprint.name}}</h3>
+                </div>
+                <div class="body">
+                  <p>{{sprint.description.substring(0, 130)}} {{sprint.description.length > 130 ? '...' : ''}}</p>
+                  <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY:
+                    {{sprint.priority}}</span>
+                </div>
+                <div class="footer text-center">
+                  <a href="/workspace/tasks/{{sprint.project_id}}/{{sprint.id}}" class="btn btn-info text-white"><i
+                      class="fas fa-book-open"></i>Open</a>
+                  <button class="btn btn-primary" (click)="openEditSprint(sprint)"><i
+                      class="fa fa-pencil"></i>Edit</button>
+                  <button class="btn btn-danger" (click)="deleteSprint(sprint.id, sprint.priority)"><i
+                      class="fa fa-trash"></i>Delete</button>
+                </div>
+              </div>
+              <br>
+            </div>
+          </div>
+        </fieldset>
+      </section>
+    </div>
+  </div>
+</div>
+
+<div #createSprintModal class="modal createSprintModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span>CREATE SPRINT</span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="create">
+            <form [formGroup]="createSprintForm" (ngSubmit)="saveCreatedSprint()">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" name="name" formControlName="name" required minlength="6" />
+                <div *ngIf="createSprintName?.errors && (submitted || createSprintName?.dirty)">
+                  <span class="text-danger" *ngIf="createSprintName?.errors?.['required']">Name is
+                    required.</span>
+                  <span class="text-danger" *ngIf="createSprintName?.hasError('minlength')">Name must be
+                    at
+                    least 6
+                    characters
+                    long.</span>
+                </div>
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" formControlName="description"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="priority">Priority</label>
+                <br>
+                <label class="radio">
+                  <input type="radio" name="priority" formControlName="priority" value="HIGH" />
+                  <span class="checkmark"></span>
+                  HIGH
+                </label>
+                <label class="radio">
+                  <input type="radio" name="priority" formControlName="priority" value="MIDDLE" />
+                  <span class="checkmark"></span>
+                  MIDDLE
+                </label>
+                <label class="radio">
+                  <input type="radio" name="priority" formControlName="priority" value="LOW" />
+                  <span class="checkmark"></span>
+                  LOW
+                </label>
+                <div *ngIf="createSprintPriority?.errors && (submitted || createSprintPriority?.dirty)">
+                  <span class="text-danger" *ngIf="createSprintPriority?.errors?.['required']">Priority is
+                    required.</span>
+                </div>
+              </div>
+              <br>
+              <div class="actions">
+                <button type="submit" class="btn btn-primary">
+                  <div class="spinner-border" role="status" *ngIf="isValidForm">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div *ngIf="!isValidForm">
+                    <i class="fa fa-save"></i>Save
+                  </div>
+                </button>
+              </div>
+              <br>
+              <div class="alert alert-danger message" role="alert" *ngIf="!isSuccessCreateSprint">
+                <span><i class="fal fa-exclamation-triangle"></i>Failed create sprint!Try again!</span>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
-    </fieldset>
-  </section>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="createSprintModal.style.display = 'none'">Close</button>
+    </div>
+  </div>
+</div>
+
+<div #editSprintModal class="modal editSprintModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <span>EDIT SPRINT</span>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-12">
+          <div class="edit">
+            <form [formGroup]="editSprintForm" (ngSubmit)="saveEditedSprint()">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" name="name" formControlName="name" required minlength="6" />
+                <div *ngIf="editSprintName?.errors && (submitted || editSprintName?.dirty)">
+                  <span class="text-danger" *ngIf="editSprintName?.errors?.['required']">Name is
+                    required.</span>
+                  <span class="text-danger" *ngIf="editSprintName?.hasError('minlength')">Name must be
+                    at
+                    least 6
+                    characters
+                    long.</span>
+                </div>
+              </div>
+              <br>
+              <div class="form-group">
+                <label for="description">Description</label>
+                <textarea name="description" formControlName="description"></textarea>
+              </div>
+              <div class="form-group">
+                <label for="priority">Priority</label>
+                <br>
+                <label class="radio">
+                  <input type="radio" name="priority" formControlName="priority" value="HIGH" />
+                  <span class="checkmark"></span>
+                  HIGH
+                </label>
+                <label class="radio">
+                  <input type="radio" name="priority" formControlName="priority" value="MIDDLE" />
+                  <span class="checkmark"></span>
+                  MIDDLE
+                </label>
+                <label class="radio">
+                  <input type="radio" name="priority" formControlName="priority" value="LOW" />
+                  <span class="checkmark"></span>
+                  LOW
+                </label>
+                <div *ngIf="editSprintPriority?.errors && (submitted || editSprintPriority?.dirty)">
+                  <span class="text-danger" *ngIf="editSprintPriority?.errors?.['required']">Priority is
+                    required.</span>
+                </div>
+              </div>
+              <br>
+              <div class="actions">
+                <button type="submit" class="btn btn-primary">
+                  <div class="spinner-border" role="status" *ngIf="isValidForm">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div *ngIf="!isValidForm">
+                    <i class="fa fa-save"></i>Save
+                  </div>
+                </button>
+              </div>
+              <br>
+              <div class="alert alert-danger message" role="alert" *ngIf="!isSuccessEditSprint">
+                <span><i class="fal fa-exclamation-triangle"></i>Failed edit sprint!Try again!</span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="editSprintModal.style.display = 'none'">Close</button>
+    </div>
+  </div>
 </div>

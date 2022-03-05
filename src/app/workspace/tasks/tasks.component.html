@@ -18,7 +18,7 @@
                   <h4>{{task.name}}</h4>
                 </div>
                 <div class="body">
-                  <p>{{task.description}}</p>
+                  <p>{{task.description.substring(0, 130)}} {{task.description.length > 130 ? '...' : ''}}</p>
                   <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
                 </div>
               </div>
@@ -35,7 +35,7 @@
                   <h4>{{task.name}}</h4>
                 </div>
                 <div class="body">
-                  <p>{{task.description}}</p>
+                  <p>{{task.description.substring(0, 130)}} {{task.description.length > 130 ? '...' : ''}}</p>
                   <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
                 </div>
               </div>
@@ -52,7 +52,7 @@
                   <h4>{{task.name}}</h4>
                 </div>
                 <div class="body">
-                  <p>{{task.description}}</p>
+                  <p>{{task.description.substring(0, 130)}} {{task.description.length > 130 ? '...' : ''}}</p>
                   <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
                 </div>
               </div>
@@ -76,7 +76,7 @@
                   <h4>{{task.name}}</h4>
                 </div>
                 <div class="body">
-                  <p>{{task.description}}</p>
+                  <p>{{task.description.substring(0, 130)}} {{task.description.length > 130 ? '...' : ''}}</p>
                   <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
                 </div>
               </div>
@@ -93,7 +93,7 @@
                   <h4>{{task.name}}</h4>
                 </div>
                 <div class="body">
-                  <p>{{task.description}}</p>
+                  <p>{{task.description.substring(0, 130)}} {{task.description.length > 130 ? '...' : ''}}</p>
                   <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
                 </div>
               </div>
@@ -110,7 +110,7 @@
                   <h4>{{task.name}}</h4>
                 </div>
                 <div class="body">
-                  <p>{{task.description}}</p>
+                  <p>{{task.description.substring(0, 130)}} {{task.description.length > 130 ? '...' : ''}}</p>
                   <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
                 </div>
               </div>
@@ -134,7 +134,7 @@
                   <h4>{{task.name}}</h4>
                 </div>
                 <div class="body">
-                  <p>{{task.description}}</p>
+                  <p>{{task.description.substring(0, 130)}} {{task.description.length > 130 ? '...' : ''}}</p>
                   <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
                 </div>
               </div>
@@ -151,7 +151,7 @@
                   <h4>{{task.name}}</h4>
                 </div>
                 <div class="body">
-                  <p>{{task.description}}</p>
+                  <p>{{task.description.substring(0, 130)}} {{task.description.length > 130 ? '...' : ''}}</p>
                   <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
                 </div>
               </div>
@@ -168,7 +168,7 @@
                   <h4>{{task.name}}</h4>
                 </div>
                 <div class="body">
-                  <p>{{task.description}}</p>
+                  <p>{{task.description.substring(0, 130)}} {{task.description.length > 130 ? '...' : ''}}</p>
                   <span class="badge alert-info"><i class="far fa-bullseye-arrow"></i>PRIORITY: {{task.priority}}</span>
                 </div>
               </div>
@@ -233,7 +233,18 @@
               </div>
               <br>
               <div class="actions">
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+                <button type="submit" class="btn btn-primary">
+                  <div class="spinner-border" role="status" *ngIf="isValidForm">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <div *ngIf="!isValidForm">
+                    <i class="fa fa-save"></i>Save
+                  </div>
+                </button>
+              </div>
+              <br>
+              <div class="alert alert-danger message" role="alert" *ngIf="!isSuccessCreateTask">
+                <span><i class="fal fa-exclamation-triangle"></i>Failed create task!Try again!</span>
               </div>
             </form>
           </div>
@@ -261,7 +272,8 @@
             <div class="edit" *ngIf="isEditTask">
               <form [formGroup]="editTaskForm" (ngSubmit)="saveEditTask()">
                 <div class="form-group">
-                  <input class="form-control" formControlName="name" required minlength="6" />
+                  <label for="name">Name</label>
+                  <input class="form-control" name="name" formControlName="name" required minlength="6" />
                   <div *ngIf="editTaskName?.errors && (submitted || editTaskName?.dirty)">
                     <span class="text-danger" *ngIf="editTaskName?.errors?.['required']">Name is
                       required.</span>
@@ -274,12 +286,47 @@
                 </div>
                 <br>
                 <div class="form-group">
-                  <textarea formControlName="description"></textarea>
+                  <label for="description">Description</label>
+                  <textarea name="description" formControlName="description"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="priority">Priority</label>
+                  <br>
+                  <label class="radio">
+                    <input type="radio" name="priority" formControlName="priority" value="HIGH" />
+                    <span class="checkmark"></span>
+                    HIGH
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="priority" formControlName="priority" value="MIDDLE" />
+                    <span class="checkmark"></span>
+                    MIDDLE
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="priority" formControlName="priority" value="LOW" />
+                    <span class="checkmark"></span>
+                    LOW
+                  </label>
+                  <div *ngIf="editTaskPriority?.errors && (submitted || editTaskPriority?.dirty)">
+                    <span class="text-danger" *ngIf="editTaskPriority?.errors?.['required']">Priority is
+                      required.</span>
+                  </div>
                 </div>
                 <br>
                 <div class="actions">
-                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>Save</button>
+                  <button type="submit" class="btn btn-primary">
+                    <div class="spinner-border" role="status" *ngIf="isValidForm">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                    <div *ngIf="!isValidForm">
+                      <i class="fa fa-save"></i>Save
+                    </div>
+                  </button>
                   <button class="btn btn-danger" (click)="isEditTask = false"><i class="fa fa-times"></i>Cancel</button>
+                </div>
+                <br>
+                <div class="alert alert-danger message" role="alert" *ngIf="!isSuccessEditTask">
+                  <span><i class="fal fa-exclamation-triangle"></i>Failed edit task!Try again!</span>
                 </div>
               </form>
             </div>
