@@ -97,14 +97,14 @@ fieldset legend {
 }
 
 .createSprintModal .create {
-    height: 300px;
+    height: 350px;
     padding: 10px;
     overflow-y: auto;
 }
 
 .editSprintModal .edit {
+    height: 370px;
     padding: 10px;
-    height: 300px;
     overflow-y: auto;
 }
 
