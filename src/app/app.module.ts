@@ -13,6 +13,8 @@ import { WorkspaceComponent } from './workspace/workspace.component';
 import { ProjectsComponent } from './workspace/projects/projects.component';
 import { SprintsComponent } from './workspace/sprints/sprints.component';
 import { TasksComponent } from './workspace/tasks/tasks.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { TasksComponent } from './workspace/tasks/tasks.component';
     AccountComponent,
     ProjectsComponent,
     SprintsComponent,
-    TasksComponent
+    TasksComponent,
+    WelcomeComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
