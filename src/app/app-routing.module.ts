@@ -9,9 +9,11 @@ import { WorkspaceComponent } from './workspace/workspace.component';
 import { ProjectsComponent } from './workspace/projects/projects.component';
 import { SprintsComponent } from './workspace/sprints/sprints.component';
 import { TasksComponent } from './workspace/tasks/tasks.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { PageNotFoundComponent } from './pagenotfound/pagenotfound.component';
 
 const routes: Routes = [
-  { path: "auth", redirectTo: "auth/login", },
+  { path: "", component: WelcomeComponent },
   {
     path: "auth", component: AuthComponent, children: [
       { path: "login", component: LoginComponent },
@@ -25,7 +27,9 @@ const routes: Routes = [
       { path: "sprints/:project_id", component: SprintsComponent, canActivate: [AuthGuard] },
       { path: "tasks/:project_id/:sprint_id", component: TasksComponent, canActivate: [AuthGuard] }
     ]
-  }
+  },
+  { path: "pagenotfound", component: PageNotFoundComponent },
+  { path: "**", pathMatch: "full", redirectTo: "/pagenotfound" }
 ];
 
 @NgModule({
